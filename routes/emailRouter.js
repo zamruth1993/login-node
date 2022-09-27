@@ -45,7 +45,8 @@ emailRouter.route('/')
     to: req.body.email.emailAddress,//replace with your email
     subject: `Welcome` +'  ' + req.body.email.firstname ,
     html:`<b>Hello, <strong> New User </strong>, 
-          Thanks for registering \n<b> with us. </b></p>`
+          Thanks for registering \n<b> with us. </b></p>`,
+
   };
   
   /* Here comes the important part, sendMail is the method which actually sends email, it takes mail options and

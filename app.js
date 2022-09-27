@@ -25,8 +25,8 @@ app.use(express.static(path.join(__dirname, 'public/login-updated')));
 
 app.use(bodyParser.json());
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use('/email', emailRouter)
+app.use('/email', usersRouter);
+// app.use('/email', emailRouter)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
