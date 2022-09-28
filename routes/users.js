@@ -1,9 +1,9 @@
 var express = require('express');
-var emailRouter = express.Router();
+var usersRouter = express.Router();
 var cors = require('./../cors');
 var nodemailer = require('nodemailer');
 
-emailRouter.route('/')
+usersRouter.route('/')
 .options(cors.cors,(req,res)=>{
     console.log("Coming email here");
     res.sendStatus(200);
@@ -26,31 +26,29 @@ emailRouter.route('/')
     tls:{
       rejectUnauthorized:false
   },
+  // details created using app password feature
     auth: {
-      user: 'zamruthbegum.1993.sm@gmail.com',//replace with your email
-      pass: 'odalcvyaizchkxya'//replace with your password
+      user: 'zamruthbegum.1993.sm@gmail.com',
+      pass: 'odalcvyaizchkxya'
     }
   }); 
 
   /*
     In mail options we specify from and to address, subject and HTML content.
-    In our case , we use our personal email as from and to address,
-    Subject is Contact name and 
-    html is our form details which we parsed using bodyParser.
+    Here i have given my personal email as from and to address is the user email id,
+    Subject is Contact name and html is a template.
   */
-    // body.email.substring(0, body.email.lastIndexOf('@'))
+    
   var mailOptions = {
-    from: 'zamruthbegum.1993.sm@gmail.com',//replace with your email
-    to: req.body.email.emailAddress,//replace with your email
+    from: 'zamruthbegum.1993.sm@gmail.com',
+    to: req.body.email.emailAddress,
     subject: `Welcome` +'  ' + req.body.email.firstname ,
     html:`<b>Hello, <strong> New User </strong>, 
           Thanks for registering \n<b> with us. </b></p>`,
 
   };
   
-  /* Here comes the important part, sendMail is the method which actually sends email, it takes mail options and
-   call back as parameter 
-  */
+  /* sendMail is the method which actually sends email, it takes mail options and call back as parameter */
 
   transporter.sendMail(mailOptions, function(error, info){
     if (error) {
@@ -58,10 +56,10 @@ emailRouter.route('/')
       res.send('error') // if error occurs send error as response to client
     } else {
       console.log('Email sent: ' + info.response);
-      res.send('Sent Successfully')//if mail is sent successfully send Sent successfully as response
+      res.json('Sent successfully') //if mail is sent successfully send Sent successfully as response
     }
   });
 })
 
 
-module.exports = emailRouter;
+module.exports = usersRouter;
